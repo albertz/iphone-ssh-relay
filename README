@@ -1,0 +1,43 @@
+This program is ssh_relay. (aka iPhone tunnel version 3)
+
+This is alpha version and very unstable. 
+*May works sometime.
+*No GUI, Have debug messages.
+*Please use at your own risk.
+
+How to use.
+
+##### Install ssh_relay for your iPhone #####
+
+1. Copy "ssh_relay" to "/var/root"
+2. Copy "Services.plist" to "/System/Library/Lockdown"
+	NOTE: If you already have modified the plist, please add a entry shown below.
+
+--------------------------------------------------
+<key>com.apple.ssh_relay</key>
+	<dict>
+		<key>AllowUnactivatedService</key>
+		<true/>
+		<key>Label</key>
+		<string>com.apple.ssh_relay</string>
+		<key>ProgramArguments</key>
+		<array>
+			<string>/var/root/ssh_relay</string>
+			<string>--lockdown</string>
+		</array>
+	</dict>
+--------------------------------------------------
+
+
+3. "# killall lockdownd" to restart lockdown services.
+
+##### Connect to your iphone via ssh_relay #####
+
+1. Build and Run newtunnel
+2. On your Mac, Do "$ ssh -l mobile -p 9876 localhost" to connect your iphone
+
+
+Created by novi on Oct 18, 2009.
+Twitter: novi_
+If you have any questions, please reply or DM to me.
+
