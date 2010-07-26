@@ -31,9 +31,18 @@ while True:
 		if not quiet: print "** Ready for SSH !"
 		break
 
-sshhost = "mobile@localhost -p " + str(localport) + " -o \"StrictHostKeyChecking no\" -o \"UserKnownHostsFile /dev/null\""
+sshparams = "-p " + str(localport) + " -o \"StrictHostKeyChecking no\" -o \"UserKnownHostsFile /dev/null\""
+sshhost = "mobile@localhost " + sshparams
 if rsynccomp:
-	sshcmd = "ssh " + sshhost + " " + " ".join(args[2:]) # first rsync arg is host but we replace that here
+	if args[3] == "--server":
+		# args[1:3] : {host} rsync --server
+		sshcmd = "ssh " + sshhost + " " + " ".join(args[2:])
+	elif args[5] == "--server" and args[1] == "-l":
+		# args[1:4] : -l {user} {host} rsync --server
+		sshhost = args[2] + "@localhost " + sshparams
+		sshcmd = "ssh " + sshhost + " " + " ".join(args[4:]) # first rsync arg is host but we replace that here
+	else:
+		raise Exception, "unknown command string: [" + ";".join(args) + "]"
 else:
 	sshcmd = "ssh " + " ".join(args[1:]) + " " + sshhost
 if not quiet: print "** running:", sshcmd
