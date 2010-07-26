@@ -21,7 +21,7 @@ rsynccomp = False
 if "-quiet" in sys.argv: quiet = True; args.remove("-quiet")
 if "-rsync" in sys.argv: quiet = True; rsynccomp = True; args.remove("-rsync")
 
-tun = Popen([os.path.dirname(sys.argv[0]) + "/newtunnel", "22", str(localport)], stdout=PIPE, stderr=STDOUT)
+tun = Popen([os.path.dirname(sys.argv[0]) + "/mac/newtunnel/build/Debug/newtunnel", "22", str(localport)], stdout=PIPE, stderr=STDOUT)
 
 if not quiet: print "** Started tunnel, waiting to be ready ..."
 while True:
