@@ -44,7 +44,7 @@ if rsynccomp:
 	else:
 		raise Exception, "unknown command string: [" + ";".join(args) + "]"
 else:
-	sshcmd = "ssh " + " ".join(args[1:]) + " " + sshhost
+	sshcmd = "ssh " + " ".join([sshhost] + args[1:] + ["2>/dev/null"])
 if not quiet: print "** running:", sshcmd
 os.system(sshcmd)
 
